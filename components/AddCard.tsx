@@ -30,7 +30,7 @@ export function AddCard() {
               <Label htmlFor="cardNumber">Card Number</Label>
               <Input
                 id="cardNumber"
-                placeholder="1234 5678 9012 3456"
+                placeholder=""
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
               />
@@ -39,7 +39,7 @@ export function AddCard() {
               <Label htmlFor="cardName">Name on Card</Label>
               <Input
                 id="cardName"
-                placeholder="John Doe"
+                placeholder=""
                 value={cardName}
                 onChange={(e) => setCardName(e.target.value)}
               />
@@ -56,7 +56,7 @@ export function AddCard() {
               </div>
               <div className="flex flex-col space-y-1.5 flex-1">
                 <Label htmlFor="cvv">CVV</Label>
-                <Input id="cvv" placeholder="123" value={cvv} onChange={(e) => setCvv(e.target.value)} />
+                <Input id="cvv" placeholder="" value={cvv} onChange={(e) => setCvv(e.target.value)} />
               </div>
             </div>
           </div>

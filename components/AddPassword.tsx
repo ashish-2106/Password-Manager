@@ -29,7 +29,7 @@ export function AddPassword() {
               <Label htmlFor="website">Website</Label>
               <Input
                 id="website"
-                placeholder="https://example.com"
+                placeholder=""
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
               />
@@ -38,7 +38,7 @@ export function AddPassword() {
               <Label htmlFor="username">Username</Label>
               <Input
                 id="username"
-                placeholder="johndoe@example.com"
+                placeholder=""
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
