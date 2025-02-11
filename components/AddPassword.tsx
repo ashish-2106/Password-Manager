@@ -18,18 +18,18 @@ export function AddPassword() {
   }
 
   return (
-    <Card className="w-full bg-black text-white">
-      <CardHeader>
+    <Card className="w-full bg-black text-white min-h-[400px]">
+      <CardHeader className="my-2">
         <CardTitle>Add New Password</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className="grid w-full items-center gap-4">
+          <div className="grid w-full items-center gap-6">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="website">Website</Label>
               <Input
                 id="website"
-                placeholder=""
+                placeholder="example.com"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
               />
@@ -38,7 +38,7 @@ export function AddPassword() {
               <Label htmlFor="username">Username</Label>
               <Input
                 id="username"
-                placeholder=""
+                placeholder="johndoe@example.com"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />

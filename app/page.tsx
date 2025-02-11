@@ -13,7 +13,10 @@ export default function Home() {
   if (!isSignedIn) {
     return (
       <div className="h-screen flex flex-col items-center justify-center bg-black text-white ">
+        <div className="text-center">
         <h1 className="text-3xl font-bold mb-4">Please Sign In to Access Your Password Manager</h1>
+
+        </div>
         <div className="border rounded-lg p-2"><SignInButton mode="modal" /></div>
 
       </div>
