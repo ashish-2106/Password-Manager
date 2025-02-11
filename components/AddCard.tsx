@@ -19,6 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { addCardServer } from "@/actions/actions"
+import { useUser } from "@clerk/clerk-react"
+import { User } from "@clerk/nextjs/server"
 
 const formSchema = z.object({
   cardName: z.string().min(2, {
@@ -35,125 +38,132 @@ const formSchema = z.object({
   }),
 })
 export function AddCard() {
-  const [cardNumber, setCardNumber] = useState("")
-  const [cardName, setCardName] = useState("")
-  const [expiryDate, setExpiryDate] = useState("")
-  const [cvv, setCvv] = useState("")
-  // 1. Define your form.
+  // const [cardNumber, setCardNumber] = useState("")
+  // const [cardName, setCardName] = useState("")
+  // const [expiryDate, setExpiryDate] = useState("")
+  // const [cvv, setCvv] = useState("")
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      
-    },
+      cardName: "",
+      cardNumber: "",
+      expirationDate: "",
+      cvv: "",
+    }
   })
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log({ cardNumber, cardName, expiryDate, cvv })
+  // 2. Define a submit handler.
+  const { user } = useUser()
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    if (user?.id) {
+      addCardServer(values.cardName, values.cardNumber, values.expirationDate, values.cvv, user.id)
+    }
+    console.log(values)
   }
 
   return (
 
     <Card className="w-full bg-black text-white min-h-[400px]">
-    <CardHeader>
-      <CardTitle>Add New Card</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="cardName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Card Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="John Doe" {...field} />
-                </FormControl>
-               
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="cardNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Card Number</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="1234567890123456"
-                    {...field}
-                    maxLength={16}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/\D/g, "")
-                      field.onChange(value)
-                    }}
-                  />
-                </FormControl>
-               
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid grid-cols-2 gap-4">
+      <CardHeader>
+        <CardTitle>Add New Card</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="expirationDate"
+              name="cardName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Expiration Date</FormLabel>
+                  <FormLabel>Card Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="MM/YY"
-                      {...field}
-                      maxLength={5}
-                      onChange={(e) => {
-                        let value = e.target.value.replace(/\D/g, "")
-                        if (value.length > 2) {
-                          value = value.slice(0, 2) + "/" + value.slice(2)
-                        }
-                        field.onChange(value)
-                      }}
-                    />
+                    <Input placeholder="John Doe" {...field} />
                   </FormControl>
-                
+
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="cvv"
+              name="cardNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>CVV</FormLabel>
+                  <FormLabel>Card Number</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="123"
+                      placeholder="1234567890123456"
                       {...field}
-                      maxLength={3}
-                      type="password"
+                      maxLength={16}
                       onChange={(e) => {
                         const value = e.target.value.replace(/\D/g, "")
                         field.onChange(value)
                       }}
                     />
                   </FormControl>
-                  
+
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
-          <Button  className="w-full bg-white text-black font-semibold" onClick={handleSubmit} >
-            Add Card
-          </Button>
-        </form>
-      </Form>
-    </CardContent>
-  </Card>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="expirationDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Expiration Date</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="MM/YY"
+                        {...field}
+                        maxLength={5}
+                        onChange={(e) => {
+                          let value = e.target.value.replace(/\D/g, "")
+                          if (value.length > 2) {
+                            value = value.slice(0, 2) + "/" + value.slice(2)
+                          }
+                          field.onChange(value)
+                        }}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="cvv"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>CVV</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="123"
+                        {...field}
+                        maxLength={3}
+                        type="password"
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, "")
+                          field.onChange(value)
+                        }}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button className="w-full bg-white text-black font-semibold" type="submit">
+              Add Card
+            </Button>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }
 
