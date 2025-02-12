@@ -8,6 +8,7 @@ import {
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import { dark, neobrutalism } from '@clerk/themes'
+import { Toaster } from 'react-hot-toast'
 
 export default function RootLayout({
   children,
@@ -16,13 +17,22 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider
-    appearance={{
-      baseTheme: dark,
-      
-    }}>
+      appearance={{
+        baseTheme: dark,
+
+      }}>
       <html lang="en">
         <body>
-         <Navbar/> 
+          <Navbar />
+          <Toaster
+           toastOptions={{
+            style: {
+              background: '#1a202c', // Dark theme background
+              color: '#f7fafc',      // Light text color
+            }}}
+            position="top-center"
+            reverseOrder={true}
+          />
           {children}
         </body>
       </html>

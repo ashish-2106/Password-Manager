@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import toast, { Toaster } from 'react-hot-toast';
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -58,6 +59,8 @@ export function AddCard() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (user?.id) {
       addCardServer(values.cardName, values.cardNumber, values.expirationDate, values.cvv, user.id)
+      toast.success("Card added successfully")
+      form.reset()
     }
     console.log(values)
   }
