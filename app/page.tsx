@@ -1,27 +1,28 @@
-"use client"; // Keep this for Clerk's useUser hook
-
 import { useUser } from "@clerk/clerk-react";
 import { AddCard } from "@/components/AddCard";
 import { AddPassword } from "@/components/AddPassword";
 import { YourCards } from "@/components/YourCards";
 import { YourPasswords } from "@/components/YourPasswords";
 import { SignInButton } from "@clerk/clerk-react";
+import { currentUser } from '@clerk/nextjs/server'
 
-export default function Home() {
-  const { isSignedIn } = useUser();
+export default  async function Home() {
+  const user = await currentUser()
+  console.log(user?.privateMetadata)
+  // const { isSignedIn } = useUser();
 
-  if (!isSignedIn) {
-    return (
-      <div className="h-screen flex flex-col items-center justify-center bg-black text-white ">
-        <div className="text-center">
-        <h1 className="text-3xl font-bold mb-4">Please Sign In to Access Your Password Manager</h1>
+  // if (!isSignedIn) {
+  //   return (
+  //     <div className="h-screen flex flex-col items-center justify-center bg-black text-white ">
+  //       <div className="text-center">
+  //       <h1 className="text-3xl font-bold mb-4">Please Sign In to Access Your Password Manager</h1>
 
-        </div>
-        <div className="border rounded-lg p-2"><SignInButton mode="modal" /></div>
+  //       </div>
+  //       <div className="border rounded-lg p-2"><SignInButton mode="modal" /></div>
 
-      </div>
-    );
-  }
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-black text-foreground">
@@ -38,7 +39,7 @@ export default function Home() {
             </section>
             <section>
               <h2 className="text-2xl font-semibold mb-4">Your Cards</h2>
-              <YourCards />
+              <YourCards  cards={Array.isArray(user?.privateMetadata.cards)?user?.privateMetadata.cards:[]}/>
             </section>
           </div>
           <div className="space-y-8">
