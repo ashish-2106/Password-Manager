@@ -63,7 +63,7 @@ export function AddPassword() {
   })
   // 2. Define a submit handler.
   const { user } = useUser()
-const router = useRouter()
+  const router = useRouter()
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (user?.id) {
       addPasswordServer(values.website, values.username, values.password, user.id)

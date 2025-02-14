@@ -24,6 +24,7 @@ import { addCardServer } from "@/actions/actions"
 import { useUser } from "@clerk/clerk-react"
 import { User } from "@clerk/nextjs/server"
 
+
 const formSchema = z.object({
   cardName: z.string().min(2, {
     message: "Card name must be at least 2 characters.",
@@ -43,7 +44,7 @@ export function AddCard() {
   // const [cardName, setCardName] = useState("")
   // const [expiryDate, setExpiryDate] = useState("")
   // const [cvv, setCvv] = useState("")
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,13 +56,16 @@ export function AddCard() {
   })
   // 2. Define a submit handler.
   const { user } = useUser()
+  const router = useRouter()
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (user?.id) {
       addCardServer(values.cardName, values.cardNumber, values.expirationDate, values.cvv, user.id)
       toast.success("Card added successfully")
       form.reset()
+      router.refresh()
     }
+
     console.log(values)
   }
 
