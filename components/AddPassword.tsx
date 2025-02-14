@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { addPasswordServer } from "@/actions/actions"
 import { useUser } from "@clerk/clerk-react"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   website: z.string().url({
@@ -62,12 +63,13 @@ export function AddPassword() {
   })
   // 2. Define a submit handler.
   const { user } = useUser()
-
+const router = useRouter()
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (user?.id) {
       addPasswordServer(values.website, values.username, values.password, user.id)
       toast.success("Password added successfully")
       form.reset()
+      router.refresh()
     }
     console.log(values)
   }
@@ -115,7 +117,7 @@ export function AddPassword() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your password" type="password" {...field} />
+                    <Input placeholder="Jhone@23" type="password" {...field} />
                   </FormControl>
 
                   <FormMessage />

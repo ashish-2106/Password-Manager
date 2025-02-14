@@ -11,9 +11,12 @@ interface CardProps {
 export function YourCards({cards}:{cards:CardProps[]}) {
   return (
     <div className="space-y-4 bg-black text-white">
+       {cards.length === 0 &&  <span className="text-muted"> No cards added yet</span>}
       {cards.map((card :CardProps) => (
         <Card key={card.cardNumber} >
+          
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+         
             <CardTitle className="text-sm font-medium">{card.cardNumber}</CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
