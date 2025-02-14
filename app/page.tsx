@@ -5,10 +5,20 @@ import { YourCards } from "@/components/YourCards";
 import { YourPasswords } from "@/components/YourPasswords";
 import { SignInButton } from "@clerk/clerk-react";
 import { currentUser } from '@clerk/nextjs/server'
+import LandingPage from "./landing/LandingPage"
+import { redirect } from "next/navigation"
 
 export default  async function Home() {
   const user = await currentUser()
   console.log(user?.privateMetadata)
+
+
+  if (!user) {
+    return <LandingPage />
+  }
+
+  // return <LandingPage />
+
   
   // const { isSignedIn } = useUser();
 
