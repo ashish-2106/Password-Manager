@@ -9,6 +9,7 @@ import { currentUser } from '@clerk/nextjs/server'
 export default  async function Home() {
   const user = await currentUser()
   console.log(user?.privateMetadata)
+  
   // const { isSignedIn } = useUser();
 
   // if (!isSignedIn) {
@@ -49,7 +50,7 @@ export default  async function Home() {
             </section>
             <section>
               <h2 className="text-2xl font-semibold mb-4">Your Passwords</h2>
-              <YourPasswords />
+              <YourPasswords passwords={Array.isArray(user?.privateMetadata.passwords)?user?.privateMetadata.passwords:[]} />
             </section>
           </div>
         </div>
