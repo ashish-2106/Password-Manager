@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -22,7 +22,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { addCardServer } from "@/actions/actions"
 import { useUser } from "@clerk/clerk-react"
-import { User } from "@clerk/nextjs/server"
 
 
 const formSchema = z.object({
@@ -40,10 +39,6 @@ const formSchema = z.object({
   }),
 })
 export function AddCard() {
-  // const [cardNumber, setCardNumber] = useState("")
-  // const [cardName, setCardName] = useState("")
-  // const [expiryDate, setExpiryDate] = useState("")
-  // const [cvv, setCvv] = useState("")
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

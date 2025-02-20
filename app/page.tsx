@@ -1,12 +1,9 @@
-import { useUser } from "@clerk/clerk-react";
 import { AddCard } from "@/components/AddCard";
 import { AddPassword } from "@/components/AddPassword";
 import { YourCards } from "@/components/YourCards";
 import { YourPasswords } from "@/components/YourPasswords";
-import { SignInButton } from "@clerk/clerk-react";
 import { currentUser } from '@clerk/nextjs/server'
 import LandingPage from "./landing/LandingPage"
-import { redirect } from "next/navigation"
 import { Instagram, Github, Linkedin } from "lucide-react";
 
 
@@ -18,24 +15,6 @@ export default  async function Home() {
   if (!user) {
     return <LandingPage />
   }
-
-  // return <LandingPage />
-
-  
-  // const { isSignedIn } = useUser();
-
-  // if (!isSignedIn) {
-  //   return (
-  //     <div className="h-screen flex flex-col items-center justify-center bg-black text-white ">
-  //       <div className="text-center">
-  //       <h1 className="text-3xl font-bold mb-4">Please Sign In to Access Your Password Manager</h1>
-
-  //       </div>
-  //       <div className="border rounded-lg p-2"><SignInButton mode="modal" /></div>
-
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="min-h-screen bg-black text-foreground">

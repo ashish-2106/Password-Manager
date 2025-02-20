@@ -1,7 +1,5 @@
 "use client";
-import { SignInButton } from '@clerk/nextjs';
 import React from 'react';
-import { Button } from './ui/button';
 import { SignedIn, SignedOut, SignUpButton, UserButton } from '@clerk/clerk-react';
 
 const Navbar = () => {

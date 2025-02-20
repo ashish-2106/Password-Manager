@@ -1,10 +1,10 @@
-import { auth } from "@clerk/nextjs"
+import { currentUser } from '@clerk/nextjs/server'
 import UserCards from "../../components/UserCards"
 
-export default function DashboardPage() {
-  const { userId } = auth()
+export default async function DashboardPage() {
+  const user = await currentUser()
 
-  if (!userId) {
+  if (!user) {
     return <div>Please sign in to view your dashboard.</div>
   }
 

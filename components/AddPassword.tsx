@@ -44,12 +44,7 @@ const formSchema = z.object({
           "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       },
     ),
-  //  username: z.string().min(8, {
-  //     message: "Card name must be at least 2 characters.",
-  //   }),
-  //  password: z.string().min(8, {
-  //     message: "Card name must be at least 2 characters.",
-  //   })
+  
 })
 
 export function AddPassword() {
