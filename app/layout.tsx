@@ -1,13 +1,9 @@
 import {
   ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
 } from '@clerk/nextjs'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-import { dark, neobrutalism } from '@clerk/themes'
+import { dark } from '@clerk/themes'
 import { Toaster } from 'react-hot-toast'
 
 export default function RootLayout({
