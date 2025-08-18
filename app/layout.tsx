@@ -5,7 +5,13 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import { dark } from '@clerk/themes'
 import { Toaster } from 'react-hot-toast'
+import type { Metadata } from 'next'
 
+// ✅ Add metadata for SEO & tab title
+export const metadata: Metadata = {
+  title: 'Password-Manager',
+  description: 'Securely manage your passwords and cards in one place – simplicity meets top-notch security.',
+}
 export default function RootLayout({
   children,
 }: {
