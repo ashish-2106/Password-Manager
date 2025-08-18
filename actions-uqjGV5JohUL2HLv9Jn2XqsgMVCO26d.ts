@@ -16,7 +16,8 @@ export async function addCardServer(
   cvv: string,
   userId: string,
 ) {
-  const user = await clerkClient.users.getUser(userId)
+  const client = await clerkClient() // ✅ await first
+  const user = await client.users.getUser(userId)
 
   let cards: Card[] = []
   if (Array.isArray(user.privateMetadata.cards)) {
@@ -24,7 +25,7 @@ export async function addCardServer(
   }
   cards.push({ cardName, cardNumber, expirationDate, cvv })
 
-  await clerkClient.users.updateUserMetadata(userId, {
+  await client.users.updateUserMetadata(userId, {
     privateMetadata: {
       cards: cards,
     },
@@ -32,7 +33,8 @@ export async function addCardServer(
 }
 
 export async function getCardsServer(userId: string): Promise<Card[]> {
-  const user = await clerkClient.users.getUser(userId)
+  const client = await clerkClient() // ✅ await first
+  const user = await client.users.getUser(userId)
 
   if (Array.isArray(user.privateMetadata.cards)) {
     return user.privateMetadata.cards
@@ -40,4 +42,3 @@ export async function getCardsServer(userId: string): Promise<Card[]> {
 
   return []
 }
-
